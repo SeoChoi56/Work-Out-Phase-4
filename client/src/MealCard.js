@@ -26,7 +26,8 @@ function MealCard({ name, image, calories, getMeals, currentMeal }) {
                   <h3>{calories} calories</h3>
                 </div>
               </Typography>
-              <button onClick={()=> addMealsToList(currentMeal)}>Add Meal to Plan</button>
+              <button className="border-2 border-red-400 bg-red-400 rounded-md text-sm" 
+                onClick={()=> addMealsToList(currentMeal)}>Add Meal to Plan</button>
             </CardContent>
           </CardActionArea>
         </Card>

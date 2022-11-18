@@ -34,15 +34,18 @@ function WorkOutReviews({ setWorkoutToReview }) {
   }
 
   return (
-    <div>
-      <label htmlFor="review">Review: </label>
-      <textarea
-        name="comment"
-        cols="60"
-        rows="5"
-        onChange={handleChange}
-      ></textarea>
-      <button onClick={handleSubmit}>Submit</button>
+    <div className="p-5">
+      <label htmlFor="review" className="text-sm font-mono">Review: </label>
+      <div>
+        <textarea
+          className="border-2 border-gray-400 text-sm rounded-sm "
+          name="comment"
+          cols="60"
+          rows="5"
+          onChange={handleChange}
+        ></textarea>
+      </div>
+      <button className="border-4 bg-red-400 border-red-400 p-1 text-md rounded-md text-xs" onClick={handleSubmit}>Submit</button>
     </div>
   );
 }

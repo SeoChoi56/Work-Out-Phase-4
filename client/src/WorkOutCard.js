@@ -44,7 +44,8 @@ function WorkOutCard({
                 <h3>{muscle}</h3>
               </div>
             </Typography>
-            <button
+            <button 
+              className="border-2 border-red-400 bg-red-400 rounded-md text-sm"
               onClick={() => {
                 addWorkOutToList(currentWorkOut);
               }}

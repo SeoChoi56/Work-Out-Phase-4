@@ -1,7 +1,7 @@
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-function Profile({ user, listOfWorkOuts, setMealToReview, listOfMeals,setWorkoutToReview }) {
+function Profile({ user, listOfWorkOuts, setMealToReview, listOfMeals, setWorkoutToReview }) {
 
   const [workOutReviews, setWorkOutReviews] = useState([])
   const [mealReviews, setMealReviews] = useState([])
@@ -12,19 +12,19 @@ function Profile({ user, listOfWorkOuts, setMealToReview, listOfMeals,setWorkout
           .json()
           .then((workoutreviews) => {
             setWorkOutReviews(workoutreviews)
-          } );
+          });
       }
     });
   }, []);
 
-  useEffect(()=> {
+  useEffect(() => {
     fetch("/mealsreview").then((response) => {
       if (response.ok) {
-        response 
+        response
           .json()
           .then((mealsreview) => {
             setMealReviews(mealsreview)
-          } )
+          })
       }
     })
   }, [])
@@ -34,17 +34,26 @@ function Profile({ user, listOfWorkOuts, setMealToReview, listOfMeals,setWorkout
     setWorkoutToReview(workout);
   }
 
-  function clickOnMealReviewButton(meal){
+  function clickOnMealReviewButton(meal) {
     setMealToReview(meal)
   }
 
   //Displays User Reviews
   const showWorkoutReviewList = workOutReviews.map((review) => {
     return (
-      <div>
-        <p>Exercise Name: {review.name}</p>
-        <p>Difficulty: {review.difficulty}</p>
-        <p>MY Review: {review.reviews[0].comment}</p>
+      <div className="grid">
+        <div>
+          <div className="bg-white p-3 border-2 border-black rounded-md ">
+            <h3 className="font-mono font-bold">Exercise Name:</h3>
+            <p>{review.name}</p>
+            <h3 className="font-mono font-bold">Difficulty:</h3>
+            <p>{review.difficulty}</p>
+            <h3 className="font-mono font-bold">My Review:</h3>
+            <p>{review.reviews[0].comment}</p>
+          </div>
+
+          <br></br>
+        </div>
       </div>
     )
   })
@@ -57,7 +66,7 @@ function Profile({ user, listOfWorkOuts, setMealToReview, listOfMeals,setWorkout
         <p>Calories: {meal.food.nutrients.ENERC_KCAL}</p>
         <p>MY Review: {meal.reviews[0].comment}</p>
       </div>
-    )  
+    )
   })
 
   //DISPLAYS USER INFO
@@ -66,16 +75,21 @@ function Profile({ user, listOfWorkOuts, setMealToReview, listOfMeals,setWorkout
   if (listOfWorkOuts?.length > 0) {
     workOutShowList = listOfWorkOuts.map((workout) => {
       return (
-        <div className="show-Work-Out-on-Profile">
-          <p>{workout.name}</p>
-          <p>{workout.difficulty}</p>
-          <p>{workout.muscle}</p>
-          <button>Delete Work-Out</button>
+        <div className="">
+        <div  className="p-3 border-2 border-black rounded-md">
+          <p className="font-mono">{workout.name}</p>
+          <p className="font-mono">{workout.difficulty}</p>
+          <p className="font-mono">{workout.muscle}</p>
+          <button className="border-4 border-red-400 bg-red-400 rounded-md">Delete Work-Out</button>
           <NavLink to={`/workout/review`}>
-            <button onClick={() => clickOnWorkOutReviewButton(workout)}>
+            <button
+              className="border-4 border-red-400 bg-red-400 rounded-md"
+              onClick={() => clickOnWorkOutReviewButton(workout)}>
               Write A Review
             </button>
           </NavLink>
+        </div>
+        <br></br>
         </div>
       );
     });
@@ -94,12 +108,12 @@ function Profile({ user, listOfWorkOuts, setMealToReview, listOfMeals,setWorkout
               Delete Meals
             </button>
             <NavLink to={`/meal/review`}>
-            <button
-              className="border-4 border-red-400 bg-red-400 rounded-md"
-              onClick={() => clickOnMealReviewButton(meal)}
-            >
-              Write Review
-            </button>
+              <button
+                className="border-4 border-red-400 bg-red-400 rounded-md"
+                onClick={() => clickOnMealReviewButton(meal)}
+              >
+                Write Review
+              </button>
             </NavLink>
           </div>
         </div>
@@ -108,19 +122,37 @@ function Profile({ user, listOfWorkOuts, setMealToReview, listOfMeals,setWorkout
   }
 
   return (
-    <div>
-      <NavLink to="/profilesettings">
-        <button>Edit User Settings</button>
-      </NavLink>
-      <h3>hi! {user.name}</h3>
+    <div className="justify-center items-center p-10 flex flex-col max-h-max font-mono bg-[url('/public/image.png')]">
+      <div className="p-4">
+        <NavLink to="/profilesettings">
+          <button className="border-4 border-red-400 bg-red-400 rounded-md text-sm" >Edit User Settings</button>
+        </NavLink>
+      </div>
+      <h3 className="font-extrabold text-2xl">Hi, {user.name}!</h3>
       <img alt="avatar" src={user.image} width={100} height={100} />
-      <h4>Meals List</h4>
+      <br></br>
+      <div className="bg-white border-2 border-gray-200 rounded-md text-xl font-bold">
+        <h4>Meals List</h4>
+      </div>
       {mealShowList}
-      <h4>Workout List</h4>
+      <br></br>
+      <div className="bg-white border-2 border-gray-200 rounded-md text-xl font-bold">
+        <h4>Workout List</h4>
+      </div>
       {workOutShowList}
-      <h4>My Reviews</h4>
-      {showMealReviewList}
-      {showWorkoutReviewList}
+      <br></br>
+      <div className="bg-white border-2 border-gray-200 rounded-md text-xl font-bold">
+        <h4>My Reviews</h4>
+      </div>
+
+      <div>
+        {showMealReviewList}
+      </div>
+      <br></br>
+      <div>
+        {showWorkoutReviewList}
+      </div>
+
     </div>
   );
 }

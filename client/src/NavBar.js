@@ -8,29 +8,47 @@ function NavBar({ onLogout, user }) {
   }
 
   return (
-    <div>
-      <nav className="nav-bar" id="navbar">
-        <NavLink to="/">
-          <a href="#calendar" className="navicons">
-            Calendar
-          </a>
-        </NavLink>
-        <NavLink to="/profile">
-          <a href="#user-profile" className="navicons">
-            Profile
-          </a>
-        </NavLink>
-        <NavLink to="/workouts">
-          <a href="#workouts" className="navicons">
-            Workouts
-          </a>
-        </NavLink>
-        <NavLink to="/meals">
-          <a href="#meals" className="navicons">
-            Meals
-          </a>
-        </NavLink>
-          <NavLink to="/workoutreview">
+    <div className="flex items-center justify-between flex-wrap p-10 mx-auto bg-black">
+      <nav
+        className="text-white space-x-5 uppercase font-mono font-extrabold text-2xl flex"
+        id="navbar"
+      >
+        <div className="hover:scale-110 transition duration-300 ease-in-out">
+          <NavLink to="/">
+            <a href="#calendar">Calendar</a>
+          </NavLink>
+        </div>
+        <div className="hover:scale-110 transition duration-300 ease-in-out">
+          <NavLink to="/profile">
+            <a href="#user-profile">Profile</a>
+          </NavLink>
+        </div>
+        <div className="hover:scale-110 transition duration-300 ease-in-out">
+          <NavLink to="/workouts">
+            <a href="#workouts">Workouts</a>
+          </NavLink>
+        </div>
+        <div className="hover:scale-110 transition duration-300 ease-in-out">
+          <NavLink to="/meals">
+            <a href="#meals">Meals</a>
+          </NavLink>
+        </div>
+        <div className="hover:scale-110 transition duration-300 ease-in-out text-red-300">
+          <NavLink to="/">
+            <a href="#log-out" onClick={handleLogout}>
+              Logout
+            </a>
+          </NavLink>
+        </div>
+      </nav>
+    </div>
+  );
+}
+
+export default NavBar;
+
+
+         {/* <NavLink to="/workoutreview">
             <a href="#workoutreview" className="navicons">
               Workouts Review
             </a>
@@ -39,15 +57,4 @@ function NavBar({ onLogout, user }) {
             <a href="#workoutreview" className="navicons">
               Meals Reviews
             </a>
-          </NavLink>
-        <NavLink to="/">
-          <a href="#log-out" className="navicons" onClick={handleLogout}>
-            Log out
-          </a>
-        </NavLink>
-      </nav>
-    </div>
-  );
-}
-
-export default NavBar;
+          </NavLink> */}

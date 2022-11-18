@@ -92,7 +92,7 @@ class Calendar extends Component {
 
   render() {
     return (
-      <div style={styles.wrap}>
+      <div style={styles.wrap} className="bg-[url('/public/image.png')]">
         <div style={styles.left}>
           <DayPilotNavigator
             selectMode={"week"}
