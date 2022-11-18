@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 function WorkOutReviews({ itemToReview }) {
   const [newItem, setNewItem] = useState({
     rating: 0,
-    text: "",
+    comment: "",
   });
 
   function handleChange(e) {
@@ -19,7 +19,6 @@ function WorkOutReviews({ itemToReview }) {
 
   function handleSubmit(e) {
     e.preventDefault();
-    console.log(itemToReview);
     // if (newItem.title === "" || newItem.bookmark === "" || newItem.image === ""
     // ) {
     //     return alert("No fields can be blank, excpet viewing source")
@@ -30,17 +29,16 @@ function WorkOutReviews({ itemToReview }) {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ review: { ...newItem, ...itemToReview } }),
-    });
+      body: JSON.stringify({ ...newItem, ...itemToReview }),
+    })
     // navigate("/")
   }
 
   return (
     <div>
-      <h2>item</h2>
       <label htmlFor="review">Review: </label>
       <textarea
-        name="Text1"
+        name="comment"
         cols="60"
         rows="5"
         onChange={handleChange}

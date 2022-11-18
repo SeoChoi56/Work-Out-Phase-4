@@ -12,12 +12,13 @@ import Calendar from "./Calendar";
 import WorkOutForm from "./WorkOutForm";
 import Profile from "./Profile";
 import ProfileSettings from "./ProfileSettings";
-import Reviews from "./WorkOutReviews";
+import MealsReviews from "./WorkOutReviews";
 
 function App() {
   const [user, setUser] = useState(null);
   const [needToRegister, setNeedToRegister] = useState(false);
   const [userWorkOuts, setUserWorkOuts] = useState([]);
+  const [userMeals, setUserMeals] = useState([])
   const [itemToReview, setItemToReview] = useState(null);
 
   //CHECKS TO SEE IF CURRENT USER MATCHES SESSION USER
@@ -36,6 +37,9 @@ function App() {
 
   function onLogout() {
     setUser("");
+    setUserWorkOuts([])
+    setUserMeals([])
+    setItemToReview(null)
   }
 
   function onRegister(value) {
@@ -48,6 +52,11 @@ function App() {
     console.log(workout);
     setUserWorkOuts([...userWorkOuts, workout]);
     console.log(userWorkOuts);
+  }
+
+  //SETS USER MEALS
+  function getUserMeals(meals) {
+    setUserMeals([...userMeals, meals])
   }
 
   //REQUEST BACKEND TO UPDATE MY SHIT
@@ -92,7 +101,7 @@ function App() {
             path="/workouts"
             element={<WorkOutForm getWorkOuts={getUserWorkOut} />}
           />
-          <Route path="/meals" element={<MealForm />} />
+          <Route path="/meals" element={<MealForm getMeals={getUserMeals}/>} />
           <Route
             path="/profile"
             element={
@@ -101,6 +110,7 @@ function App() {
                 setUser={setUser}
                 listOfWorkOuts={userWorkOuts}
                 setItemToReview={getItemToReview}
+                listOfMeals={userMeals}
               />
             }
           />
@@ -114,10 +124,9 @@ function App() {
             path="/workout/review"
             element={<WorkOutReviews itemToReview={itemToReview} />}
           />
-          <Route
-            path="/review"
-            element={<Reviews itemToReview={itemToReview} />}
-          />
+          <Route 
+            path="/meal/review" 
+            element={<MealsReviews itemToReview={itemToReview}/>} />
         </Routes>
       </div>
     );

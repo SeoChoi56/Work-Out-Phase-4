@@ -1,14 +1,17 @@
 Rails.application.routes.draw do
   
-  resources :meals
+  # resources :meals
   # resources :reviews
-  resources :users
+  # resources :users
+
+
   get "/workouts", to: "workouts#show"
   get "/me", to: "users#show"
   post '/reviews', to: "reviews#create"
   post "/login", to: "sessions#create"
   post "/workouts", to: "workouts#create"
   post "/register", to: "users#register"
+  post "/reviewm", to: "reviews#mealcreate"
 
   delete "/logout", to: "sessions#destroy"
 

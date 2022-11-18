@@ -15,17 +15,44 @@ class ReviewsController < ApplicationController
          rating: review_params[:rating], meal_id: @meal.id,
         comment: review_params[:comment],
          user_id: session[:user_id])
-        byebug
         if @workout.save
         else
             render 'new'
         end
     end
 
+    def mealcreate
+      # might need workout id to create
+      @workout = Workout.create
+      @meal = Meal.create(
+        name: meal_review_params[:name], 
+        calories: meal_review_params[:calories],
+        reviews: meal_review_params[:reviews]
+      )
+      @meal.reviews.create(
+        rating: meal_review_params[:rating],
+        #might need this 
+        # workout_id: @workout.id 
+        comment: meal_review_params[:comment],
+        user_id: session[:user_id]
+      )
+      if @meal.save 
+      else
+        render 'new'
+      end
+      
+    end
+
     private
 
     def review_params
-        params.require(:review).permit(:rating, :comment, 
-        :name, :equipment, :muscle, :category, :difficulty)
+        params.permit(:rating, :comment, 
+        :name, :equipment, :muscle, :category, :difficulty, :review)
+        # require(:review)
     end
+
+    def meal_review_params
+      params.permit(:name, :calories, :reviews, :rating, :comment)
+    end
+
 end
