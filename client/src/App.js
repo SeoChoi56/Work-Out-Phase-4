@@ -3,6 +3,7 @@ import "./App.css";
 import { useState, useEffect } from "react";
 import Homepage from "./Homepage";
 import LoginPage from "./LoginPage";
+import WorkOutReviews from "./WorkOutReviews";
 import RegisterPage from "./RegisterPage";
 import MealForm from "./MealForm";
 import { Route, Routes } from "react-router-dom";
@@ -11,13 +12,13 @@ import Calendar from "./Calendar";
 import WorkOutForm from "./WorkOutForm";
 import Profile from "./Profile";
 import ProfileSettings from "./ProfileSettings";
-import Reviews from "./WorkOutReviews"
+import Reviews from "./WorkOutReviews";
 
 function App() {
   const [user, setUser] = useState(null);
   const [needToRegister, setNeedToRegister] = useState(false);
-  const [userWorkOuts, setUserWorkOuts] = useState([])
-  const [itemToReview, setItemToReview] = useState(null)
+  const [userWorkOuts, setUserWorkOuts] = useState([]);
+  const [itemToReview, setItemToReview] = useState(null);
 
   //CHECKS TO SEE IF CURRENT USER MATCHES SESSION USER
   useEffect(() => {
@@ -42,11 +43,11 @@ function App() {
   }
 
   //SETS USER WORKOUTS
-  function getUserWorkOut(workout){
-    console.log("this is from app to set the data")
-    console.log(workout)
-    setUserWorkOuts([...userWorkOuts, workout])
-    console.log(userWorkOuts)
+  function getUserWorkOut(workout) {
+    console.log("this is from app to set the data");
+    console.log(workout);
+    setUserWorkOuts([...userWorkOuts, workout]);
+    console.log(userWorkOuts);
   }
 
   //REQUEST BACKEND TO UPDATE MY SHIT
@@ -65,15 +66,13 @@ function App() {
       headers: {
         "Content-type": "application/json",
       },
-    })
-      .then((res) => res.json())
+    }).then((res) => res.json());
   }
 
   //GETS THE ITEM TO REVIEW
   function getItemToReview(item) {
-    setItemToReview(item)
+    setItemToReview(item);
   }
- 
 
   if (!user) {
     //RENDER BASED ON REGISTER OR LOGIN
@@ -89,11 +88,21 @@ function App() {
         <NavBar onLogout={onLogout} user={user} />
         <Routes>
           <Route path="/" element={<Calendar />} />
-          <Route path="/workouts" element={<WorkOutForm getWorkOuts={getUserWorkOut}/>} />
+          <Route
+            path="/workouts"
+            element={<WorkOutForm getWorkOuts={getUserWorkOut} />}
+          />
           <Route path="/meals" element={<MealForm />} />
           <Route
             path="/profile"
-            element={<Profile user={user} setUser={setUser} listOfWorkOuts={userWorkOuts} setItemToReview={getItemToReview}/>}
+            element={
+              <Profile
+                user={user}
+                setUser={setUser}
+                listOfWorkOuts={userWorkOuts}
+                setItemToReview={getItemToReview}
+              />
+            }
           />
           <Route
             path="/profilesettings"
@@ -101,7 +110,14 @@ function App() {
               <ProfileSettings user={user} updateUserInfo={updateUserInfo} />
             }
           />
-          <Route path="/review" element={<Reviews itemToReview={itemToReview}/>} />
+          <Route
+            path="/workout/review"
+            element={<WorkOutReviews itemToReview={itemToReview} />}
+          />
+          <Route
+            path="/review"
+            element={<Reviews itemToReview={itemToReview} />}
+          />
         </Routes>
       </div>
     );

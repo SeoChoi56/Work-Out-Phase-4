@@ -4,13 +4,19 @@ import CardContent from "@mui/material/CardContent";
 import Typography from "@mui/material/Typography";
 import { CardActionArea } from "@mui/material";
 
-function WorkOutCard({ name, difficulty, equipment, muscle, getWorkOuts, currentWorkOut, }) {
- //SENDS SELECTED WORKOUT TO USER LIST
- 
- 
- function addWorkOutToList(currentWorkOut) {
-    console.log(currentWorkOut)
-    getWorkOuts(currentWorkOut)
+function WorkOutCard({
+  name,
+  difficulty,
+  equipment,
+  muscle,
+  getWorkOuts,
+  currentWorkOut,
+}) {
+  //SENDS SELECTED WORKOUT TO USER LIST
+
+  function addWorkOutToList(currentWorkOut) {
+    console.log(currentWorkOut);
+    getWorkOuts(currentWorkOut);
   }
 
   return (
@@ -38,9 +44,13 @@ function WorkOutCard({ name, difficulty, equipment, muscle, getWorkOuts, current
                 <h3>{muscle}</h3>
               </div>
             </Typography>
-            <button onClick={() => {
-                addWorkOutToList(currentWorkOut)
-                }}>Add Workout to Plan</button>
+            <button
+              onClick={() => {
+                addWorkOutToList(currentWorkOut);
+              }}
+            >
+              Add Workout to Plan
+            </button>
           </CardContent>
         </CardActionArea>
       </Card>

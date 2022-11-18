@@ -63,7 +63,14 @@ function WorkOutForm({ getWorkOuts }) {
     })
       .then((res) => res.json())
       .then((data) => {
-        setListOfWorkOuts(data);
+        const { name, equipment, type, difficulty, muscle } = data;
+        setListOfWorkOuts({
+          name,
+          equipment,
+          category: type,
+          difficulty,
+          muscle,
+        });
         if (data.length > 0) {
           setShowState(false);
         } else {
@@ -149,21 +156,22 @@ function WorkOutForm({ getWorkOuts }) {
   return (
     <div className="workouts-page">
       {/*Two different forms: 1st - search by KEYWORD 2nd - search by three different categories*/}
-      
-      <div className="workouts-page-header"><h4 >Search for an Exercise</h4>
 
-      <form id="workouts-search-by-term" onSubmit={handleSearchAPI}>
-        <label htmlFor="workoutSearch">Search </label>
-        <input type="text" id="workoutSearch" name="name" />
-        <button>Search</button>
-      </form>
+      <div className="workouts-page-header">
+        <h4>Search for an Exercise</h4>
+
+        <form id="workouts-search-by-term" onSubmit={handleSearchAPI}>
+          <label htmlFor="workoutSearch">Search </label>
+          <input type="text" id="workoutSearch" name="name" />
+          <button>Search</button>
+        </form>
       </div>
       <form id="workouts-by-type-form" onSubmit={callWorkOutApi}>
         <h4>
           Don't know what exercise to choose? Select the type, muscle group to
           target, and the difficulty.
         </h4>
-        
+
         <div>
           <div className="workouts-page-form">
             <label htmlFor="work-out-type">Type</label>
@@ -217,7 +225,9 @@ function WorkOutForm({ getWorkOuts }) {
               <option value="intermediate">Intermediate</option>
               <option value="expert">Expert</option>
             </select>
-          <button className="workout-form-button-submit" type="submit">Submit</button>
+            <button className="workout-form-button-submit" type="submit">
+              Submit
+            </button>
           </div>
         </div>
       </form>
