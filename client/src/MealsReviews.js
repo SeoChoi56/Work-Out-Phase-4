@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-function MealsReviews({ itemToReview }) {
+function MealsReviews({ setMealToReview }) {
     
     const [newItem, setNewItem] = useState({
         rating: 0,
@@ -26,7 +26,7 @@ function MealsReviews({ itemToReview }) {
                 Accept: "application/json",
                 "Content-Type": "application/json",
             },
-            body: JSON.stringify({...newItem, ...itemToReview})
+            body: JSON.stringify({...newItem, ...setMealToReview})
         })
     }
 

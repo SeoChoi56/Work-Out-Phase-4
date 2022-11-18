@@ -53,7 +53,7 @@ class ReviewsController < ApplicationController
     end
 
     def meal_review_params
-      params.permit(:name, :calories, :reviews, :rating, :comment)
+      params.permit(:name, :calories, :review, :rating, :comment)
     end
 
 end

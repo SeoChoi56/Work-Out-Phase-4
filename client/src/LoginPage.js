@@ -34,7 +34,8 @@ function LoginPage( { onLogin, onRegisterClick } ) {
   }
 
   return (
-    <form className="login-form">
+    <div>
+    <form className="bg-green-500">
     <h1>**title of app here**</h1>
     <h3>LOGIN</h3>
       <label htmlFor="username">Username:</label>
@@ -54,6 +55,7 @@ function LoginPage( { onLogin, onRegisterClick } ) {
       <button type="submit" onClick={handleLogin}>Login</button>
       <button type="button" onClick={registerClick} >Register</button>
     </form>
+    </div>
   );
 }
 
