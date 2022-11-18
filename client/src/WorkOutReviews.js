@@ -7,10 +7,9 @@ function WorkOutReviews({ itemToReview }) {
   });
 
   function handleChange(e) {
-    console.log(e.target.value);
+    console.log(e.target.id, "from workouts")
     const value = e.target.type === "radio" ? e.target.checked : e.target.value;
     const key = e.target.type === "radio" ? e.target.id : e.target.name;
-    console.log(key, value);
     setNewItem({
       ...newItem,
       [key]: value,

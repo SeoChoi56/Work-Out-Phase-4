@@ -1,31 +1,45 @@
 import { NavLink } from "react-router-dom";
 import { useEffect, useState } from "react";
 
-function Profile({ user, listOfWorkOuts, setItemToReview, listOfMeals }) {
+function Profile({ user, listOfWorkOuts, setMealToReview, listOfMeals,setWorkoutToReview }) {
 
-  const [reviews, setReviews] = useState([])
+  const [workOutReviews, setWorkOutReviews] = useState([])
+  const [mealReviews, setMealReviews] = useState([])
   useEffect(() => {
     fetch("/workouts").then((response) => {
       if (response.ok) {
         response
           .json()
-          .then((events) => {
-            setReviews(events)
+          .then((workoutreviews) => {
+            setWorkOutReviews(workoutreviews)
           } );
       }
     });
   }, []);
 
+  useEffect(()=> {
+    fetch("/mealsreview").then((response) => {
+      if (response.ok) {
+        response 
+          .json()
+          .then((mealsreview) => {
+            setMealReviews(mealsreview)
+          } )
+      }
+    })
+  }, [])
+
+
   function clickOnWorkOutReviewButton(workout) {
-    setItemToReview(workout);
+    setWorkoutToReview(workout);
   }
 
   function clickOnMealReviewButton(meal){
-    setItemToReview(meal)
+    setMealToReview(meal)
   }
 
   //Displays User Reviews
-  const showWorkoutReviewList = reviews.map((review) => {
+  const showWorkoutReviewList = workOutReviews.map((review) => {
     return (
       <div>
         <p>Exercise Name: {review.name}</p>
@@ -33,6 +47,17 @@ function Profile({ user, listOfWorkOuts, setItemToReview, listOfMeals }) {
         <p>MY Review: {review.reviews[0].comment}</p>
       </div>
     )
+  })
+
+  const showMealReviewList = mealReviews.map((meal) => {
+    console.log(meal)
+    return (
+      <div>
+        <p>Meal Name: {meal.food.label}</p>
+        <p>Calories: {meal.food.nutrients.ENERC_KCAL}</p>
+        <p>MY Review: {meal.reviews[0].comment}</p>
+      </div>
+    )  
   })
 
   //DISPLAYS USER INFO
@@ -94,6 +119,7 @@ function Profile({ user, listOfWorkOuts, setItemToReview, listOfMeals }) {
       <h4>Workout List</h4>
       {workOutShowList}
       <h4>My Reviews</h4>
+      {showMealReviewList}
       {showWorkoutReviewList}
     </div>
   );

@@ -19,7 +19,8 @@ function App() {
   const [needToRegister, setNeedToRegister] = useState(false);
   const [userWorkOuts, setUserWorkOuts] = useState([]);
   const [userMeals, setUserMeals] = useState([])
-  const [itemToReview, setItemToReview] = useState(null);
+  const [workoutToReview, setWorkoutToReview] = useState(null);
+  const [mealsToReview, setMealsToReview] = useState(null);
 
   //CHECKS TO SEE IF CURRENT USER MATCHES SESSION USER
   useEffect(() => {
@@ -39,7 +40,8 @@ function App() {
     setUser("");
     setUserWorkOuts([])
     setUserMeals([])
-    setItemToReview(null)
+    setWorkoutToReview(null)
+    setMealsToReview(null)
   }
 
   function onRegister(value) {
@@ -78,9 +80,14 @@ function App() {
     }).then((res) => res.json());
   }
 
-  //GETS THE ITEM TO REVIEW
-  function getItemToReview(item) {
-    setItemToReview(item);
+  //GETS THE WORKOUT TO REVIEW
+  function getWorkoutsToReview(item) {
+    setWorkoutToReview(item);
+  }
+
+  //GETS MEALS TO REVIEW
+  function getMealsToReview(item) {
+    setMealsToReview(item)
   }
 
   if (!user) {
@@ -109,7 +116,8 @@ function App() {
                 user={user}
                 setUser={setUser}
                 listOfWorkOuts={userWorkOuts}
-                setItemToReview={getItemToReview}
+                setMealToReview={getMealsToReview}
+                setWorkoutToReview={getWorkoutsToReview}
                 listOfMeals={userMeals}
               />
             }
@@ -122,11 +130,11 @@ function App() {
           />
           <Route
             path="/workout/review"
-            element={<WorkOutReviews itemToReview={itemToReview} />}
+            element={<WorkOutReviews setWorkoutToReview={workoutToReview} />}
           />
           <Route 
             path="/meal/review" 
-            element={<MealsReviews itemToReview={itemToReview}/>} />
+            element={<MealsReviews setMealToReview={mealsToReview}/>} />
         </Routes>
       </div>
     );

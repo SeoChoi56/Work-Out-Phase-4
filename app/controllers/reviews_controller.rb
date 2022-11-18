@@ -23,16 +23,17 @@ class ReviewsController < ApplicationController
 
     def mealcreate
       # might need workout id to create
+      byebug
       @workout = Workout.create
       @meal = Meal.create(
-        name: meal_review_params[:name], 
-        calories: meal_review_params[:calories],
+        name: meal_review_params[:food["label"]], 
+        calories: meal_review_params[:food["nutrients"]["ENERC_KCAL"]],
         reviews: meal_review_params[:reviews]
       )
       @meal.reviews.create(
         rating: meal_review_params[:rating],
         #might need this 
-        # workout_id: @workout.id 
+        workout_id: @workout.id,
         comment: meal_review_params[:comment],
         user_id: session[:user_id]
       )
