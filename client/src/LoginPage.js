@@ -36,7 +36,7 @@ function LoginPage( { onLogin, onRegisterClick } ) {
   return (
     <div>
     <form className="bg-green-500">
-    <h1>**title of app here**</h1>
+    <h1>Work Out</h1>
     <h3>LOGIN</h3>
       <label htmlFor="username">Username:</label>
       <input
